@@ -1,0 +1,9 @@
+use "https://www.rug.nl/ggdc/docs/pwt100-na-data.dta", replace
+encode countrycode, gen(geo)
+xtset geo year
+gen lrgdpna_pc = ln(q_gdp/pop)
+gen realgrowth_pcpa = lrgdpna_pc - L.lrgdpna_pc
+
+twoway (scatter realgrowth lrgdpna_pc if country=="JPN", ytitle(growth rate of real GDP p.c.) xtitle(ln real GDP p.c.) title(Japan 1950-2019) legend(off)) (lowess realgrowth lrgdpna_pc if country=="JPN"), saving(JPN, replace)
+twoway (scatter realgrowth lrgdpna_pc if country=="ITA", ytitle(growth rate of real GDP p.c.) xtitle(ln real GDP p.c.) title(Italy 1950-2019) legend(off)) (lowess realgrowth lrgdpna_pc if country=="ITA"), saving(ITA, replace)
+graph combine JPN.gph ITA.gph, ycommon
