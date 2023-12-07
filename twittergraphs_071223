@@ -1,3 +1,5 @@
+/* STATA code producing the figure for https://twitter.com/KM_Wacker/status/1732738586485686410 */
+
 use "https://www.rug.nl/ggdc/docs/pwt100-na-data.dta", replace
 encode countrycode, gen(geo)
 xtset geo year
